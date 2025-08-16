@@ -198,8 +198,38 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  const cornerLT = '┌';
+  const cornerRT = '┐';
+  const cornerLB = '└';
+  const cornerRB = '┘';
+  const wall = '│';
+  const topBottom = '─';
+  let topLine = `${cornerLT}${topBottom.repeat(width - 2)}${cornerRT}\n`;
+  let bodyLine = `${wall}${' '.repeat(width - 2)}${wall}\n`;
+  let bottomLine = `${cornerLB}${topBottom.repeat(width - 2)}${cornerRB}\n`;
+  let middleLine;
+  let result;
+  if (height === 2 && width > 2) {
+    result = topLine + bottomLine;
+  }
+  if (width === 2 && height === 2) {
+    result = `${cornerLT}${cornerRT}\n${cornerLB}${cornerRB}\n`;
+  }
+  if (width === 2 && height > 2) {
+    topLine = `${cornerLT}${cornerRT}\n`;
+    bodyLine = `${wall}${wall}\n`;
+    if (height > 1) {
+      middleLine = bodyLine.repeat(height - 2);
+    }
+    bottomLine = `${cornerLB}${cornerRB}\n`;
+    result = topLine + middleLine + bottomLine;
+  }
+  if (width > 2 && height > 2) {
+    middleLine = bodyLine.repeat(height - 2);
+    result = topLine + middleLine + bottomLine;
+  }
+  return result;
 }
 
 /**
@@ -218,8 +248,35 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const upperAlphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const lowerAlphabet = 'abcdefghijklmnopqrstuvwxyz';
+  const result = [];
+  for (let j = 0; j < str.length; j += 1) {
+    for (let i = 0; i < 13; i += 1) {
+      if (str[j] === ' ') {
+        result[j] = ' ';
+      }
+      if (str[j] === upperAlphabet[i]) {
+        result[j] = upperAlphabet[i + 13];
+      }
+      if (str[j] === lowerAlphabet[i]) {
+        result[j] = lowerAlphabet[i + 13];
+      }
+    }
+    for (let i = 13; i < 26; i += 1) {
+      if (str[j] === upperAlphabet[i]) {
+        result[j] = upperAlphabet[i - 13];
+      }
+      if (str[j] === lowerAlphabet[i]) {
+        result[j] = lowerAlphabet[i - 13];
+      }
+    }
+  }
+  if (!lowerAlphabet.includes(str[str.length - 1])) {
+    result[str.length] = str[str.length - 1];
+  }
+  return result.join('');
 }
 
 /**
@@ -235,8 +292,8 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  return typeof value === 'string' || value instanceof String;
 }
 
 /**
@@ -263,8 +320,67 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  let result;
+  [
+    'A♣',
+    '2♣',
+    '3♣',
+    '4♣',
+    '5♣',
+    '6♣',
+    '7♣',
+    '8♣',
+    '9♣',
+    '10♣',
+    'J♣',
+    'Q♣',
+    'K♣',
+    'A♦',
+    '2♦',
+    '3♦',
+    '4♦',
+    '5♦',
+    '6♦',
+    '7♦',
+    '8♦',
+    '9♦',
+    '10♦',
+    'J♦',
+    'Q♦',
+    'K♦',
+    'A♥',
+    '2♥',
+    '3♥',
+    '4♥',
+    '5♥',
+    '6♥',
+    '7♥',
+    '8♥',
+    '9♥',
+    '10♥',
+    'J♥',
+    'Q♥',
+    'K♥',
+    'A♠',
+    '2♠',
+    '3♠',
+    '4♠',
+    '5♠',
+    '6♠',
+    '7♠',
+    '8♠',
+    '9♠',
+    '10♠',
+    'J♠',
+    'Q♠',
+    'K♠',
+  ].forEach((val, index) => {
+    if (val === value) {
+      result = index;
+    }
+  });
+  return result;
 }
 
 module.exports = {
