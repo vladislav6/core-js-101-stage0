@@ -19,8 +19,15 @@
  *    ['Array', 'Number', 'string'], 'Date'    => -1
  *    [0, 1, 2, 3, 4, 5], 5    => 5
  */
-function findElement(/* arr, value */) {
-  throw new Error('Not implemented');
+function findElement(arr, value) {
+  let index = -1;
+  arr.map((element, ind) => {
+    if (element === value) {
+      index = ind;
+    }
+    return index;
+  });
+  return index;
 }
 
 /**
@@ -34,7 +41,7 @@ function findElement(/* arr, value */) {
  *    2 => [ 1, 3 ]
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
-function generateOdds(/* len */) {
+function generateOdds(/*  len */) {
   throw new Error('Not implemented');
 }
 
