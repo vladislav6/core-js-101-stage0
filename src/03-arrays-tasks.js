@@ -638,8 +638,21 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  const result = [];
+  const cntr = [];
+  const i = 0;
+  arr.map((val) => cntr.push([val.country, val.city]));
+  cntr.sort();
+  function count(a, c) {
+    if (c < a.length) {
+      result.push({ country: a[c][0], city: a[c][1] });
+      const k = c + 1;
+      count(a, k);
+    }
+  }
+  count(cntr, i);
+  return result;
 }
 
 /**
@@ -660,8 +673,21 @@ function sortCitiesArray(/* arr */) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  const result = Array(n)
+    .fill(1)
+    .map(() => Array(n).fill(0));
+  const i = 0;
+  function count(a, c) {
+    const arr = [...a];
+    if (c < arr.length) {
+      arr[c][c] = 1;
+      const k = c + 1;
+      count(arr, k);
+    }
+  }
+  count(result, i);
+  return result;
 }
 
 /**
