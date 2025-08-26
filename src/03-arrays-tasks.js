@@ -446,8 +446,90 @@ function getPositivesCount(arr) {
  *   [ 'nine','eight','nine','eight'] => [ 'eight','eight','nine','nine']
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const arr2 = [];
+  const result = [];
+  const i = 0;
+  function count(a, c) {
+    if (c < a.length) {
+      if (typeof a[c] === 'string') {
+        switch (a[c]) {
+          case 'zero':
+            arr2.push(0);
+            break;
+          case 'one':
+            arr2.push(1);
+            break;
+          case 'two':
+            arr2.push(2);
+            break;
+          case 'three':
+            arr2.push(3);
+            break;
+          case 'four':
+            arr2.push(4);
+            break;
+          case 'five':
+            arr2.push(5);
+            break;
+          case 'six':
+            arr2.push(6);
+            break;
+          case 'seven':
+            arr2.push(7);
+            break;
+          case 'eight':
+            arr2.push(8);
+            break;
+          case 'nine':
+            arr2.push(9);
+            break;
+          default:
+            arr2.push('');
+        }
+      } else {
+        switch (a[c]) {
+          case 0:
+            result.push('zero');
+            break;
+          case 1:
+            result.push('one');
+            break;
+          case 2:
+            result.push('two');
+            break;
+          case 3:
+            result.push('three');
+            break;
+          case 4:
+            result.push('four');
+            break;
+          case 5:
+            result.push('five');
+            break;
+          case 6:
+            result.push('six');
+            break;
+          case 7:
+            result.push('seven');
+            break;
+          case 8:
+            result.push('eight');
+            break;
+          case 9:
+            result.push('nine');
+            break;
+          default:
+            arr2.push('');
+        }
+      }
+      const k = c + 1;
+      count(a, k);
+    }
+  }
+  count(arr, i);
+  count(arr2.sort(), i);
+  return result;
 }
 
 /**
@@ -462,8 +544,11 @@ function sortDigitNamesByNumericOrder(/* arr */) {
  *   [ -1, 1, -1, 1 ]      => 0
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
-function getItemsSum(/* arr */) {
-  throw new Error('Not implemented');
+function getItemsSum(arr) {
+  const result = arr.reduce((acc, val) => {
+    return acc + val;
+  }, 0);
+  return result;
 }
 
 /**
@@ -478,8 +563,14 @@ function getItemsSum(/* arr */) {
  *  [ -1, 'false', null, 0 ] => 2
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
-function getFalsyValuesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getFalsyValuesCount(arr) {
+  const result = arr.reduce((acc, val) => {
+    if (!val) {
+      return acc + 1;
+    }
+    return acc;
+  }, 0);
+  return result;
 }
 
 /**
@@ -496,8 +587,14 @@ function getFalsyValuesCount(/* arr */) {
  *    [ null, undefined, null ], null => 2
  *    [ true, 0, 1, 'true' ], true => 1
  */
-function findAllOccurrences(/* arr, item */) {
-  throw new Error('Not implemented');
+function findAllOccurrences(arr, item) {
+  const result = arr.reduce((acc, val) => {
+    if (val === item) {
+      return acc + 1;
+    }
+    return acc;
+  }, 0);
+  return result;
 }
 
 /**
@@ -511,8 +608,8 @@ function findAllOccurrences(/* arr, item */) {
  *    [1, 2, 3, 4, 5]                   => '1,2,3,4,5'
  *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
  */
-function toStringList(/* arr */) {
-  throw new Error('Not implemented');
+function toStringList(arr) {
+  return arr.join(',');
 }
 
 /**
