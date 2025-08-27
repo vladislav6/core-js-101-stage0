@@ -795,8 +795,20 @@ function selectMany(/* arr, childrenSelector */) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  let result = [];
+  let arr2 = [...arr];
+  const i = 0;
+  function count(a, c) {
+    if (c < a.length) {
+      arr2 = arr2.flat();
+      result = arr2[a[a.length - 1]];
+      const k = c + 1;
+      count(a, k);
+    }
+  }
+  count(indexes, i);
+  return result;
 }
 
 /**
@@ -817,8 +829,25 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  let fPart = [];
+  let sPart = [];
+  let result = [];
+  let len;
+  let mid;
+  if (arr.length % 2 === 0) {
+    fPart = arr.slice(0, arr.length / 2);
+    sPart = arr.slice(arr.length / 2);
+    result = sPart.concat(fPart);
+  } else {
+    len = arr.length - 1;
+    fPart = arr.slice(0, len / 2);
+    mid = arr.slice(len / 2, len / 2 + 1);
+    sPart = arr.slice(len / 2 + 1);
+    result = sPart.concat(mid, fPart);
+  }
+
+  return result;
 }
 
 module.exports = {
