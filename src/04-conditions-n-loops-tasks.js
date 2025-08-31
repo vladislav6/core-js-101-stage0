@@ -256,8 +256,20 @@ function findFirstSingleChar(str) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  let result = '';
+  const min = Math.min(a, b);
+  const max = Math.max(a, b);
+  if (isStartIncluded === false && isEndIncluded === false) {
+    result = `(${min}, ${max})`;
+  } else if (isStartIncluded === false && isEndIncluded === true) {
+    result = `(${min}, ${max}]`;
+  } else if (isStartIncluded !== false && isEndIncluded !== true) {
+    result = `[${min}, ${max})`;
+  } else if (isStartIncluded !== false && isEndIncluded !== false) {
+    result = `[${min}, ${max}]`;
+  }
+  return result;
 }
 
 /**
@@ -272,8 +284,9 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  const arrStr = [...str];
+  return arrStr.reverse().join('');
 }
 
 /**
@@ -288,8 +301,9 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  const arrStr = [...num.toString()];
+  return Number(arrStr.reverse().join(''));
 }
 
 /**
@@ -330,8 +344,19 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  const strNum = num.toString();
+  function sum(n) {
+    let count = 0;
+    for (let i = 0; i < n.length; i += 1) {
+      count += Number(n[i]);
+    }
+    if (count > 9) {
+      count = sum(count.toString());
+    }
+    return count;
+  }
+  return sum(strNum);
 }
 
 /**
