@@ -239,8 +239,12 @@ const getSecondItems = (arr) => arr.filter((_, ind) => ind % 2 !== 0);
  *  [ 'a', 'b', 'c', null ] => [ 'a', 'b','b', 'c','c','c',  null,null,null,null ]
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  return arr.reduce((acc, val, ind) => {
+    const itemsArr = Array.from({ length: ind + 1 }, () => val);
+    acc.push(itemsArr);
+    return acc.flat();
+  }, []);
 }
 
 /**
@@ -256,8 +260,17 @@ function propagateItemsByPositionIndex(/* arr */) {
  *   [ 1,2,3,4,5,6,7,8,9,10 ] => [ 10, 9, 8 ]
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
-function get3TopItems(/* arr */) {
-  throw new Error('Not implemented');
+function get3TopItems(arr) {
+  return arr.reduce((acc) => {
+    const items = arr;
+    const max = Math.max(...items);
+    acc.push(max);
+    items[items.indexOf(max)] = '';
+    if (acc.length > 3) {
+      acc.length = 3;
+    }
+    return acc;
+  }, []);
 }
 
 /**
@@ -273,9 +286,10 @@ function get3TopItems(/* arr */) {
  *   [ null, 1, 'elephant' ] => 1
  *   [ 1, '2' ] => 1
  */
-function getPositivesCount(/* arr */) {
-  throw new Error('Not implemented');
-}
+const getPositivesCount = (arr) =>
+  arr.length > 0
+    ? arr.findLast((val) => typeof val === 'number' && val > 0)
+    : 0;
 
 /**
  * Sorts digit names
@@ -290,8 +304,21 @@ function getPositivesCount(/* arr */) {
  *   [ 'nine','eight','nine','eight'] => [ 'eight','eight','nine','nine']
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const digits = [
+    'zero',
+    'one',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six',
+    'seven',
+    'eight',
+    'nine',
+  ];
+  const digitIndex = arr.map((val) => digits.indexOf(val)).sort();
+  return digitIndex.map((val) => digits[val]);
 }
 
 /**
@@ -306,9 +333,11 @@ function sortDigitNamesByNumericOrder(/* arr */) {
  *   [ -1, 1, -1, 1 ]      => 0
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
-function getItemsSum(/* arr */) {
-  throw new Error('Not implemented');
-}
+const getItemsSum = (arr) =>
+  arr.reduce((acc, val) => {
+    const sum = acc + val;
+    return sum;
+  }, 0);
 
 /**
  * Returns the number of all falsy value in the specified array
@@ -322,9 +351,8 @@ function getItemsSum(/* arr */) {
  *  [ -1, 'false', null, 0 ] => 2
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
-function getFalsyValuesCount(/* arr */) {
-  throw new Error('Not implemented');
-}
+const getFalsyValuesCount = (arr) =>
+  arr.filter((val) => Boolean(val) === false).length;
 
 /**
  * Returns a number of all occurrences of the specified item in an array
@@ -340,9 +368,8 @@ function getFalsyValuesCount(/* arr */) {
  *    [ null, undefined, null ], null => 2
  *    [ true, 0, 1, 'true' ], true => 1
  */
-function findAllOccurrences(/* arr, item */) {
-  throw new Error('Not implemented');
-}
+const findAllOccurrences = (arr, item) =>
+  arr.filter((val) => val === item).length;
 
 /**
  * Concatenates all elements from specified array into single string with ',' delimiter
@@ -355,9 +382,7 @@ function findAllOccurrences(/* arr, item */) {
  *    [1, 2, 3, 4, 5]                   => '1,2,3,4,5'
  *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
  */
-function toStringList(/* arr */) {
-  throw new Error('Not implemented');
-}
+const toStringList = (arr) => arr.join(',');
 
 /**
  * Sorts the specified array by country name first and city name
@@ -490,9 +515,7 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], (x) => x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
-}
+const selectMany = (arr, childrenSelector) => arr.flatMap(childrenSelector);
 
 /**
  * Returns an element from the multidimensional array by the specified indexes.
