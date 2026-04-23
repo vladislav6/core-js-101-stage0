@@ -49,8 +49,14 @@ function getFizzBuzz(num) {
  *   5  => 120
  *   10 => 3628800
  */
-function getFactorial(/* n */) {
-  throw new Error('Not implemented');
+function getFactorial(n) {
+  let result = 1;
+  let i = n;
+  while (i !== 0) {
+    result *= i;
+    i -= 1;
+  }
+  return result;
 }
 
 /**
@@ -65,8 +71,26 @@ function getFactorial(/* n */) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
+function getSumBetweenNumbers(start, end) {
+  let result;
+  if (start === end) {
+    result = [start];
+  }
+  if (start < 0) {
+    const len = start * -1 + end + 1;
+    result = Array.from({ length: len }, (_, ind) => start + ind);
+  }
+  if (start === 0) {
+    result = Array.from({ length: end + 1 }, (_, ind) => start + ind);
+  }
+  if (start > 0) {
+    result = Array.from({ length: end }, (_, ind) => start + ind).filter(
+      (val) => val <= end
+    );
+  }
+  return result.reduce((acc, val) => {
+    return acc + val;
+  }, 0);
 }
 
 /**
