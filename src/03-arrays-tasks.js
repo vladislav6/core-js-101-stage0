@@ -526,8 +526,23 @@ const distinct = (arr) => [...new Set(arr)];
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const map = new Map();
+  const i = 0;
+  function count(a, c) {
+    if (c < a.length) {
+      const key = keySelector(a[c]);
+      const value = valueSelector(a[c]);
+      if (!map.has(key)) {
+        map.set(key, []);
+      }
+      map.get(key).push(value);
+      const k = c + 1;
+      count(a, k);
+    }
+  }
+  count(array, i);
+  return map;
 }
 
 /**
@@ -557,9 +572,8 @@ const selectMany = (arr, childrenSelector) => arr.flatMap(childrenSelector);
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
-}
+const getElementByIndexes = (arr, indexes) =>
+  arr.flat(Infinity)[indexes[indexes.length - 1]];
 
 /**
  * Swaps the head and tail of the specified array:
